@@ -13,10 +13,7 @@
 /* Begin PBXFileReference section */
 		75CB64132885CF00000D679A /* ImageEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ImageEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CB64162885CF00000D679A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		75CB64192885CF00000D679A /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cute_image.jpg; path = ../cute_image.jpg; sourceTree = "<group>"; };
-		75CB641A2885CF00000D679A /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = nice_music.ogg; path = ../nice_music.ogg; sourceTree = "<group>"; };
-		75CB641B2885CF00000D679A /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = sansation.ttf; path = ../sansation.ttf; sourceTree = "<group>"; };
-		75CB641C2885CF00000D679A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		75CB64222886824B000D679A /* ImageEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImageEditor.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,21 +46,10 @@
 		75CB64152885CF00000D679A /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				75CB64222886824B000D679A /* ImageEditor.entitlements */,
 				75CB64162885CF00000D679A /* main.cpp */,
-				75CB64182885CF00000D679A /* Resources */,
 			);
 			path = ImageEditor;
-			sourceTree = "<group>";
-		};
-		75CB64182885CF00000D679A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				75CB64192885CF00000D679A /* cute_image.jpg */,
-				75CB641A2885CF00000D679A /* nice_music.ogg */,
-				75CB641B2885CF00000D679A /* sansation.ttf */,
-				75CB641C2885CF00000D679A /* icon.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +119,7 @@
 		75CB641D2885CF00000D679A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -177,7 +163,7 @@
 		75CB641E2885CF00000D679A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -221,9 +207,11 @@
 		75CB64202885CF00000D679A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImageEditor/ImageEditor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6J4W5DWVDW;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -231,9 +219,11 @@
 		75CB64212885CF00000D679A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImageEditor/ImageEditor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6J4W5DWVDW;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
