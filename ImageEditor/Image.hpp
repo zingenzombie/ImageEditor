@@ -22,37 +22,18 @@ Image* ImageImporter(string fileAddress);
 
 class Image{
 public:
-    struct __attribute__ ((packed)) pixel;
-    
-    Image();
-    Image(string filename);
-    
-    virtual vector<vector<pixel>> *Pixels() const{};
-    
-    /*struct __attribute__ ((packed)) pixel{
-        char r = 0, g = 0, b = 0;
-    };*/
-};
-
-class PNG : virtual public Image{
-public:
-    PNG();
-    PNG(string fileAddress);
-    
-    struct __attribute__ ((packed)) Header{
-        
-    };
-};
-
-class TGA : virtual public Image{
-public:
-    
     struct __attribute__ ((packed)) Pixel;
     
-    TGA();
-    TGA(string fileAddress);
+    Image();
+    Image(string fileName);
     
-    vector<vector<Pixel>> *Pixels(){return pixels;};
+    void TGA(string fileName);
+    
+    vector<vector<Pixel>> *pixels;
+    
+    struct __attribute__ ((packed)) Pixel{
+        char r = 0, g = 0, b = 0;
+    };
     
     struct __attribute__ ((packed)) Header{
             char idLength;
@@ -68,16 +49,6 @@ public:
             char bitsPerPixel;
             char imageDescriptor;
         };
-    
-    vector<vector<Pixel>> *pixels;
-    
-    Header header;
-    
-    struct __attribute__ ((packed)) Pixel {
-        unsigned char r = 0;
-        unsigned char g = 0;
-        unsigned char b = 0;
-    };
 };
 
 #endif /* Image_hpp */

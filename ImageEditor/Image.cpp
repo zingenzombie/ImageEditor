@@ -26,10 +26,6 @@ Image* ImageImporter(string fileAddress){
         type += fileAddress.at(i);
     }
     
-    if(type == "png"){
-        return new PNG(fileAddress);
-    }
-    
     if(type == "tga"){
         return new TGA(fileAddress);
     }
@@ -40,32 +36,11 @@ Image::Image(){
     
 }
 
-PNG::PNG(){}
-
-PNG::PNG(string fileAddress){
-    
-}
-
-TGA::TGA(){}
-
-TGA::TGA(string fileAddress){
+void Image::TGA(string fileAddress){
     
     ifstream file(fileAddress, ios_base::binary);
-
-    /*
-    file.read((char *)&header.idLength, 1);
-    file.read((char *)&header.colorMapType, 1);
-    file.read((char *)&header.dataTypeCode, 1);
-    file.read((char *)&header.colorMapOrigin, 2);
-    file.read((char *)&header.colorMapLength, 2);
-    file.read((char *)&header.colorMapDepth, 1);
-    file.read((char *)&header.xOrigin, 2);
-    file.read((char *)&header.yOrigin, 2);
-    file.read((char *)&header.width, 2);
-    file.read((char *)&header.height, 2);
-    file.read((char *)&header.bitsPerPixel, 1);
-    file.read((char *)&header.imageDescriptor, 1);
-    */
+    
+    Header header;
     
     file.read((char *)&header, 18);
 
@@ -73,9 +48,22 @@ TGA::TGA(string fileAddress){
 
     for(short i = 0; i < header.height; i++){
         for(short j = 0; j < header.width; j++){
-                file.read((char *)&pixels->at(i).at(j).b, 1);
-                file.read((char *)&pixels->at(i).at(j).g, 1);
-                file.read((char *)&pixels->at(i).at(j).r, 1);
+            
+            /*
+            char *b;
+            char *g;
+            char *r;
+                
+            file.read((char *)&b, 1);
+            file.read((char *)&g, 1);
+            file.read((char *)&r, 1);
+            */
+             
+            
+            file.read((char *)&pixels->at(i).at(j).b, 1);
+            file.read((char *)&pixels->at(i).at(j).g, 1);
+            file.read((char *)&pixels->at(i).at(j).r, 1);
+             
         }
     }
 }
