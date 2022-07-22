@@ -17,6 +17,7 @@
 		75CB64222886824B000D679A /* ImageEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImageEditor.entitlements; sourceTree = "<group>"; };
 		75CB642328868781000D679A /* Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
 		75CB642428868781000D679A /* Image.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
+		75CB6426288AFF9D000D679A /* EXAMPLE_extracredit.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = EXAMPLE_extracredit.tga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		75CB64152885CF00000D679A /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				75CB6426288AFF9D000D679A /* EXAMPLE_extracredit.tga */,
 				75CB64222886824B000D679A /* ImageEditor.entitlements */,
 				75CB64162885CF00000D679A /* main.cpp */,
 				75CB642328868781000D679A /* Image.cpp */,
@@ -132,6 +134,7 @@
 					/Library/Frameworks/,
 					"$(inherited)",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/,
@@ -176,6 +179,7 @@
 					/Library/Frameworks/,
 					"$(inherited)",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/,

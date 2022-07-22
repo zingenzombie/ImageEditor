@@ -23,16 +23,19 @@ Image* ImageImporter(string fileAddress);
 class Image{
 public:
     struct __attribute__ ((packed)) Pixel;
+    struct __attribute__ ((packed)) Header;
+    
+    void TGA(string fileName);
     
     Image();
     Image(string fileName);
     
-    void TGA(string fileName);
+    unsigned char *pixelsArr;
     
     vector<vector<Pixel>> *pixels;
     
-    struct __attribute__ ((packed)) Pixel{
-        char r = 0, g = 0, b = 0;
+    struct Pixel{
+        unsigned char r = 0, g = 0, b = 0, a = 0;
     };
     
     struct __attribute__ ((packed)) Header{
@@ -49,6 +52,9 @@ public:
             char bitsPerPixel;
             char imageDescriptor;
         };
+    
+    Header header;
+    
 };
 
 #endif /* Image_hpp */

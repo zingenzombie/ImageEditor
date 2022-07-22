@@ -15,6 +15,7 @@ Image* ImageImporter(string fileAddress){
     string type;
     
     int endpoint;
+    
     for(int i = fileAddress.size() - 1; i >= 0; i--){
         if(fileAddress.at(i) == '.'){
             endpoint = i;
@@ -26,44 +27,43 @@ Image* ImageImporter(string fileAddress){
         type += fileAddress.at(i);
     }
     
-    if(type == "tga"){
-        return new TGA(fileAddress);
-    }
+    Image *image;
     
+    if(type == "tga"){
+        image = new Image();
+        image->TGA(fileAddress);
+    }
+    return image;
 };
 
-Image::Image(){
-    
-}
+Image::Image(){}
 
 void Image::TGA(string fileAddress){
     
     ifstream file(fileAddress, ios_base::binary);
     
-    Header header;
-    
     file.read((char *)&header, 18);
+    
+    /*
+    pixelsArr = new unsigned char[((int) header.height * header.width * 3)];
+    
+    int pos = 0;
+    for(int i = 0; i < header.height * header.width; i++){
+        file.read((char *)&pixelsArr[pos], 1);
+        pos++;
+    }
+     */
 
+    
+    
     pixels = new vector<vector<Pixel>>(header.height, vector<Pixel>(header.width, Pixel()));
 
     for(short i = 0; i < header.height; i++){
         for(short j = 0; j < header.width; j++){
-            
-            /*
-            char *b;
-            char *g;
-            char *r;
-                
-            file.read((char *)&b, 1);
-            file.read((char *)&g, 1);
-            file.read((char *)&r, 1);
-            */
-             
-            
             file.read((char *)&pixels->at(i).at(j).b, 1);
             file.read((char *)&pixels->at(i).at(j).g, 1);
             file.read((char *)&pixels->at(i).at(j).r, 1);
-             
         }
     }
+    
 }
