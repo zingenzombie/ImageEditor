@@ -12,6 +12,8 @@ int main(int argc, char const** argv)
     int width = sf::VideoMode::getDesktopMode().width;
     int height = sf::VideoMode::getDesktopMode().height;
     
+    bool rToggle = false;
+    
     sf::RenderWindow window(sf::VideoMode(width, height), "Image Editor");
     
     window.setVerticalSyncEnabled(true);
@@ -34,13 +36,33 @@ int main(int argc, char const** argv)
                 cout << "closing" << endl;
             }
             
-            if (event.type == sf::Event::MouseWheelMoved)
-            {
-                std::cout << "wheel movement: " << event.mouseWheel.delta << std::endl;
-                std::cout << "mouse x: " << event.mouseWheel.x << std::endl;
-                std::cout << "mouse y: " << event.mouseWheel.y << std::endl;
-                //imageSpr.scale(1.1, 1.1);
-                imageSpr.scale( 1 +(float) event.mouseWheel.delta / 10, 1 + (float) event.mouseWheel.delta / 10);
+            //Keyboard toggles
+            if (event.type == sf::Event::KeyPressed){
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+                    rToggle = !rToggle;
+            }
+            
+                
+            //Mouse movement & related actions
+            if (event.type == sf::Event::MouseWheelMoved){
+                
+                //Rotate
+                if(rToggle){
+                    imageSpr.rotate(event.mouseWheel.delta * 15);
+                    break;
+                }
+                
+                //Zoom
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LSystem))
+                   imageSpr.scale( 1 + (float) event.mouseWheel.delta / 10, 1 + (float) event.mouseWheel.delta / 10);
+                if(imageSpr.getScale().x < .1)
+                    imageSpr.setScale(.1, .1);
+                
+                //Scroll
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+                    imageSpr.move((float) event.mouseWheel.delta * -10, 0);
+                else
+                    imageSpr.move(0, (float) event.mouseWheel.delta * 10);
             }
             
             window.clear();
