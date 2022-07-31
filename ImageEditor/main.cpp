@@ -32,6 +32,8 @@ int main(int argc, char const** argv)
     int width = sf::VideoMode::getDesktopMode().width;
     int height = sf::VideoMode::getDesktopMode().height;
     
+    cout << width << ", " << height << endl;
+    
     bool rToggle = false;
     
     sf::RenderWindow window(sf::VideoMode(width, height), "Image Editor");
@@ -62,13 +64,17 @@ int main(int argc, char const** argv)
             
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && window.hasFocus()){
                 
-                sf::Vector2i mousePos = sf::Mouse::getPosition();
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 
-                    cout << mousePos.x << endl;
-                    cout << mousePos.y << endl;
-                
-                if(imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getLocalBounds().contains(mousePos.x, mousePos.y)){
+                //Image coloring
+                if(imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getGlobalBounds().contains(mousePos.x, mousePos.y)){
                     cout << "meep" << endl;
+                    
+                    mousePos.x = mousePos.x - imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getPosition().x + (imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.getSize().x / 2);
+                    mousePos.y = mousePos.y - imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getPosition().y + (imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.getSize().y / 2);
+                    
+                    imageHolder->layers.at(imageHolder->layers.size() - 1)->image.setPixel(mousePos.x, mousePos.y, sf::Color(0, 0, 0));
+                    imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.update(imageHolder->layers.at(imageHolder->layers.size() - 1)->image);
                 }
             }
             
