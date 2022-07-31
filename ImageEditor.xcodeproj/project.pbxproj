@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75B6A436289622B400F7F5DB /* ImageHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75B6A434289622B400F7F5DB /* ImageHolder.cpp */; };
 		75CB64172885CF00000D679A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75CB64162885CF00000D679A /* main.cpp */; };
-		75CB642528868781000D679A /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75CB642328868781000D679A /* Image.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		75B6A434289622B400F7F5DB /* ImageHolder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageHolder.cpp; sourceTree = "<group>"; };
+		75B6A435289622B400F7F5DB /* ImageHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageHolder.hpp; sourceTree = "<group>"; };
+		75B6A437289629FD00F7F5DB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		75CB64132885CF00000D679A /* ImageEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ImageEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CB64162885CF00000D679A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		75CB64222886824B000D679A /* ImageEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImageEditor.entitlements; sourceTree = "<group>"; };
-		75CB642328868781000D679A /* Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
-		75CB642428868781000D679A /* Image.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
 		75CB6426288AFF9D000D679A /* EXAMPLE_extracredit.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = EXAMPLE_extracredit.tga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,11 +51,12 @@
 		75CB64152885CF00000D679A /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				75B6A437289629FD00F7F5DB /* icon.png */,
 				75CB6426288AFF9D000D679A /* EXAMPLE_extracredit.tga */,
 				75CB64222886824B000D679A /* ImageEditor.entitlements */,
 				75CB64162885CF00000D679A /* main.cpp */,
-				75CB642328868781000D679A /* Image.cpp */,
-				75CB642428868781000D679A /* Image.hpp */,
+				75B6A434289622B400F7F5DB /* ImageHolder.cpp */,
+				75B6A435289622B400F7F5DB /* ImageHolder.hpp */,
 			);
 			path = ImageEditor;
 			sourceTree = "<group>";
@@ -117,7 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CB64172885CF00000D679A /* main.cpp in Sources */,
-				75CB642528868781000D679A /* Image.cpp in Sources */,
+				75B6A436289622B400F7F5DB /* ImageHolder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
