@@ -19,7 +19,7 @@ int main(int argc, char const** argv)
     window.setVerticalSyncEnabled(true);
     
     sf::Image image;
-    image.loadFromFile("car.tga");
+    image.loadFromFile("Untitled_Artwork.png");
     sf::Texture imageTxt;
     imageTxt.loadFromImage(image);
     sf::Sprite imageSpr;
@@ -31,6 +31,17 @@ int main(int argc, char const** argv)
     while(window.isOpen()){
         sf::Event event;
         while(window.pollEvent(event)){
+            
+            if(event.type == sf::Event::Resized){
+                imageSpr.setPosition(window.getSize().x / 2, window.getSize().y / 2);
+                float x = window.getView().getSize().x;
+                float y = window.getView().getSize().y;
+                sf::Vector2u vectorTmp(x, y);
+                window.setSize(vectorTmp);
+            }
+            
+            //image.getPixel(<#unsigned int x#>, <#unsigned int y#>)
+            
             if(event.type == sf::Event::Closed){
                 window.close();
                 cout << "closing" << endl;
@@ -46,11 +57,13 @@ int main(int argc, char const** argv)
             //Mouse movement & related actions
             if (event.type == sf::Event::MouseWheelMoved){
                 
+                /* TEMPORARILY REMOVED IN ORDER TO CREATE IMAGE MODIFICATION
                 //Rotate
                 if(rToggle){
                     imageSpr.rotate(event.mouseWheel.delta * 15);
                     break;
                 }
+                 */
                 
                 //Zoom
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::LSystem))
@@ -64,6 +77,10 @@ int main(int argc, char const** argv)
                 else
                     imageSpr.move(0, (float) event.mouseWheel.delta * 10);
             }
+            
+            /*if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && window.focus){
+                sf::Mouse::
+            }*/
             
             window.clear();
             
