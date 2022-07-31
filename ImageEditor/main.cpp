@@ -60,6 +60,18 @@ int main(int argc, char const** argv)
                     imageHolder->layers.at(i)->sprite.setPosition(window.getSize().x / 2, window.getSize().y / 2);
             }
             
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && window.hasFocus()){
+                
+                sf::Vector2i mousePos = sf::Mouse::getPosition();
+                
+                    cout << mousePos.x << endl;
+                    cout << mousePos.y << endl;
+                
+                if(imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getLocalBounds().contains(mousePos.x, mousePos.y)){
+                    cout << "meep" << endl;
+                }
+            }
+            
             else if(event.type == sf::Event::MouseButtonPressed){
                 
             }
