@@ -41,15 +41,21 @@ void TestFunctionD(){
     cout << "D!!!" << endl;
 }
 
-Buttons *CreateButtons(){
+void LayerSelect(ImageHolder *imageHolder, Buttons::Button button, int i){
+    imageHolder->activeImage = i;
+}
+
+Buttons *CreateButtons(sf::RenderWindow &window, ImageHolder *imageHolder){
     Buttons *buttons = new Buttons();
+    
+    for(int i = 0; i < imageHolder->layers.size(); i++)
+        buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(window.getSize().x - 250, window.getSize().y - 75 - (i * 125)), sf::Color(64, 64, 64), "layer", TestFunctionA);
+    
     buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 75), sf::Color(64, 64, 64), "These Are Words", TestFunctionA);
-    
     buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 200), sf::Color(128, 128, 128), "These Are Also Words", TestFunctionB);
-    
     buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 325), sf::Color(192, 192, 192), "These Are Also Words", TestFunctionC);
-    
     buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 450), sf::Color(255, 255, 255), "These Are Also Words", TestFunctionD);
+    
     return buttons;
 }
 
@@ -75,7 +81,7 @@ int main(int argc, char const** argv)
     imageHolder->AddLayer("icon.png");
     imageHolder->layers.at(1)->sprite.setPosition(window.getSize().x / 2, window.getSize().y / 2);
     
-    Buttons *buttons = CreateButtons();
+    Buttons *buttons = CreateButtons(window, imageHolder);
     
     //window.setVerticalSyncEnabled(true);
     
@@ -101,7 +107,11 @@ int main(int argc, char const** argv)
                 
                 for(int i = 0; i < buttons->buttons.size(); i++){
                     if(buttons->buttons.at(i)->HasBeenClicked(mousePos)){
-                        buttons->functions.at(i)();
+                        if(buttons->buttons.at(i)->words == "layer"){
+                            LayerSelect(imageHolder, *buttons->buttons.at(i), i);
+                            break;
+                        }
+                        buttons->buttons.at(i)->function();
                         break;
                     }
                 }

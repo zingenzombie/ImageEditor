@@ -16,13 +16,16 @@
 using namespace std;
 
 class Buttons{
+public:
     class Button{
     public:
         Button(){
             rectangle.setSize(sf::Vector2f(25, 25));
             rectangle.setPosition(25, 25);
         }
-        Button(sf::Vector2f dimensions, sf::Vector2i position, sf::Color color, string words){
+        Button(sf::Vector2f dimensions, sf::Vector2i position, sf::Color color, string words, void (*function)()){
+            this->function = function;
+            this->words = words;
             rectangle.setSize(dimensions);
             rectangle.setOrigin(dimensions.x / 2, dimensions.y / 2);
             rectangle.setPosition(position.x, position.y);
@@ -36,8 +39,11 @@ class Buttons{
         }
         
         sf::RectangleShape rectangle;
+        
+        string words;
+        
+        void (*function)();
     };
-public:
     Buttons(){}
     
     void AddButton(){
@@ -45,13 +51,10 @@ public:
     }
     
     void AddButton(sf::Vector2f dimensions, sf::Vector2i position, sf::Color color, string words, void (*function)()){
-        buttons.push_back(new Button(dimensions, position, color, words));
-        functions.push_back(function);
+        buttons.push_back(new Button(dimensions, position, color, words, function));
     }
     
     vector<Button*> buttons;
-    
-    vector<void (*)()> functions;
 };
 
 #endif /* Buttons_hpp */
