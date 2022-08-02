@@ -41,9 +41,13 @@ public:
     
     void AddLayer(string imageName){
         layers.push_back(new Image(imageName));
+        
+        activeImage++;
     }
     
     vector<Image*> layers;
+    
+    int activeImage = -1;
 };
 
 #endif /* ImageHolder_hpp */

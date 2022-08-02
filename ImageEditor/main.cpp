@@ -3,10 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include "ImageHolder.hpp"
+#include "Buttons.hpp"
 
 using namespace std;
 
-void DrawMenus(sf::RenderWindow &window, ImageHolder *imageHolder){
+void DrawMenus(sf::RenderWindow &window, ImageHolder *imageHolder, Buttons *buttons){
     sf::RectangleShape sideBoxes;
     
     sideBoxes.setFillColor(sf::Color(25, 25, 25));
@@ -18,6 +19,26 @@ void DrawMenus(sf::RenderWindow &window, ImageHolder *imageHolder){
     
     sideBoxes.setPosition(window.getSize().x - sideBoxesWidth, 0);
     window.draw(sideBoxes);
+    
+    for(int i = 0; i < buttons->buttons.size(); i++){
+        window.draw(buttons->buttons.at(i)->rectangle);
+    }
+}
+
+void TestFunction(){
+    cout << "works!!!" << endl;
+}
+
+Buttons *CreateButtons(){
+    Buttons *buttons = new Buttons();
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 75), sf::Color(64, 64, 64), "These Are Words", TestFunction);
+    
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 200), sf::Color(128, 128, 128), "These Are Also Words", TestFunction);
+    
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 325), sf::Color(192, 192, 192), "These Are Also Words", TestFunction);
+    
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 450), sf::Color(255, 255, 255), "These Are Also Words", TestFunction);
+    return buttons;
 }
 
 void DrawImages(sf::RenderWindow &window, ImageHolder *imageHolder){
@@ -32,8 +53,6 @@ int main(int argc, char const** argv)
     int width = sf::VideoMode::getDesktopMode().width;
     int height = sf::VideoMode::getDesktopMode().height;
     
-    cout << width << ", " << height << endl;
-    
     bool rToggle = false;
     
     sf::RenderWindow window(sf::VideoMode(width, height), "Image Editor");
@@ -44,7 +63,9 @@ int main(int argc, char const** argv)
     imageHolder->AddLayer("icon.png");
     imageHolder->layers.at(1)->sprite.setPosition(window.getSize().x / 2, window.getSize().y / 2);
     
-    window.setVerticalSyncEnabled(true);
+    Buttons *buttons = CreateButtons();
+    
+    //window.setVerticalSyncEnabled(true);
     
     while(window.isOpen()){
         sf::Event event;
@@ -67,14 +88,25 @@ int main(int argc, char const** argv)
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 
                 //Image coloring
-                if(imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getGlobalBounds().contains(mousePos.x, mousePos.y)){
-                    cout << "meep" << endl;
+                if(imageHolder->layers.at(imageHolder->activeImage)->sprite.getGlobalBounds().contains(mousePos.x, mousePos.y)){
+                    mousePos.x = mousePos.x - imageHolder->layers.at(imageHolder->activeImage)->sprite.getPosition().x + (imageHolder->layers.at(imageHolder->activeImage)->texture.getSize().x / 2);
+                    mousePos.y = mousePos.y - imageHolder->layers.at(imageHolder->activeImage)->sprite.getPosition().y + (imageHolder->layers.at(imageHolder->activeImage)->texture.getSize().y / 2);
                     
-                    mousePos.x = mousePos.x - imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getPosition().x + (imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.getSize().x / 2);
-                    mousePos.y = mousePos.y - imageHolder->layers.at(imageHolder->layers.size() - 1)->sprite.getPosition().y + (imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.getSize().y / 2);
+                    imageHolder->layers.at(imageHolder->activeImage)->image.setPixel(mousePos.x, mousePos.y, sf::Color(0, 0, 0));
+                    imageHolder->layers.at(imageHolder->activeImage)->image.setPixel(mousePos.x - 1, mousePos.y, sf::Color(0, 0, 0));
+                    imageHolder->layers.at(imageHolder->activeImage)->image.setPixel(mousePos.x + 1, mousePos.y, sf::Color(0, 0, 0));
+                    imageHolder->layers.at(imageHolder->activeImage)->image.setPixel(mousePos.x, mousePos.y - 1, sf::Color(0, 0, 0));
+                    imageHolder->layers.at(imageHolder->activeImage)->image.setPixel(mousePos.x, mousePos.y + 1, sf::Color(0, 0, 0));
                     
-                    imageHolder->layers.at(imageHolder->layers.size() - 1)->image.setPixel(mousePos.x, mousePos.y, sf::Color(0, 0, 0));
-                    imageHolder->layers.at(imageHolder->layers.size() - 1)->texture.update(imageHolder->layers.at(imageHolder->layers.size() - 1)->image);
+                    //Update the sprite's texture with the changes.
+                    imageHolder->layers.at(imageHolder->activeImage)->texture.update(imageHolder->layers.at(imageHolder->activeImage)->image);
+                }
+                
+                else for(int i = 0; i < buttons->buttons.size(); i++){
+                    if(buttons->buttons.at(i)->HasBeenClicked(mousePos)){
+                        buttons->functions.at(i);
+                        break;
+                    }
                 }
             }
             
@@ -88,7 +120,7 @@ int main(int argc, char const** argv)
             DrawImages(window, imageHolder);
             
             //Menu Drawing
-            DrawMenus(window, imageHolder);
+            DrawMenus(window, imageHolder, buttons);
             
             window.display();
         }
