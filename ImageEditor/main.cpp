@@ -25,19 +25,31 @@ void DrawMenus(sf::RenderWindow &window, ImageHolder *imageHolder, Buttons *butt
     }
 }
 
-void TestFunction(){
-    cout << "works!!!" << endl;
+void TestFunctionA(){
+    cout << "A!!!" << endl;
+}
+
+void TestFunctionB(){
+    cout << "B!!!" << endl;
+}
+
+void TestFunctionC(){
+    cout << "C!!!" << endl;
+}
+
+void TestFunctionD(){
+    cout << "D!!!" << endl;
 }
 
 Buttons *CreateButtons(){
     Buttons *buttons = new Buttons();
-    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 75), sf::Color(64, 64, 64), "These Are Words", TestFunction);
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 75), sf::Color(64, 64, 64), "These Are Words", TestFunctionA);
     
-    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 200), sf::Color(128, 128, 128), "These Are Also Words", TestFunction);
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 200), sf::Color(128, 128, 128), "These Are Also Words", TestFunctionB);
     
-    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 325), sf::Color(192, 192, 192), "These Are Also Words", TestFunction);
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 325), sf::Color(192, 192, 192), "These Are Also Words", TestFunctionC);
     
-    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 450), sf::Color(255, 255, 255), "These Are Also Words", TestFunction);
+    buttons->AddButton(sf::Vector2f(450, 100), sf::Vector2i(250, 450), sf::Color(255, 255, 255), "These Are Also Words", TestFunctionD);
     return buttons;
 }
 
@@ -83,7 +95,19 @@ int main(int argc, char const** argv)
                     imageHolder->layers.at(i)->sprite.setPosition(window.getSize().x / 2, window.getSize().y / 2);
             }
             
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && window.hasFocus()){
+            if(event.type == sf::Event::MouseButtonPressed && window.hasFocus()){
+                
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                
+                for(int i = 0; i < buttons->buttons.size(); i++){
+                    if(buttons->buttons.at(i)->HasBeenClicked(mousePos)){
+                        buttons->functions.at(i)();
+                        break;
+                    }
+                }
+            }
+            
+            else if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && window.hasFocus()){
                 
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 
@@ -101,17 +125,6 @@ int main(int argc, char const** argv)
                     //Update the sprite's texture with the changes.
                     imageHolder->layers.at(imageHolder->activeImage)->texture.update(imageHolder->layers.at(imageHolder->activeImage)->image);
                 }
-                
-                else for(int i = 0; i < buttons->buttons.size(); i++){
-                    if(buttons->buttons.at(i)->HasBeenClicked(mousePos)){
-                        buttons->functions.at(i);
-                        break;
-                    }
-                }
-            }
-            
-            else if(event.type == sf::Event::MouseButtonPressed){
-                
             }
             
             window.clear();
